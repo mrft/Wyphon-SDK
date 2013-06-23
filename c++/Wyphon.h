@@ -41,8 +41,8 @@ namespace Wyphon {
 
 //	typedef void ( * LPD3DTextureSharingStartedCALLBACK)( HANDLE wyphonPartnerHandle, unsigned __int32 sendingPartnerId, WyphonD3DTextureInfo * pTextureInfo);
 //	typedef void ( * LPD3DTextureSharingStoppedCALLBACK)( HANDLE wyphonPartnerHandle, unsigned __int32 sendingPartnerId, WyphonD3DTextureInfo * pTextureInfo );
-	typedef void ( * LPD3DTextureSharingStartedCALLBACK)( HANDLE wyphonPartnerHandle, unsigned __int32 sendingPartnerId, HANDLE sharedTextureHandle, unsigned __int32 width, unsigned __int32 height, DWORD format, DWORD usage, LPTSTR description );
-	typedef void ( * LPD3DTextureSharingStoppedCALLBACK)( HANDLE wyphonPartnerHandle, unsigned __int32 sendingPartnerId, HANDLE sharedTextureHandle, unsigned __int32 width, unsigned __int32 height, DWORD format, DWORD usage, LPTSTR description );
+	typedef void ( * LPD3DTextureSharingStartedCALLBACK)( HANDLE wyphonPartnerHandle, unsigned __int32 sendingPartnerId, HANDLE sharedTextureHandle, unsigned __int32 width, unsigned __int32 height, DWORD format, DWORD usage, LPTSTR description, void * customData );
+	typedef void ( * LPD3DTextureSharingStoppedCALLBACK)( HANDLE wyphonPartnerHandle, unsigned __int32 sendingPartnerId, HANDLE sharedTextureHandle, unsigned __int32 width, unsigned __int32 height, DWORD format, DWORD usage, LPTSTR description, void * customData );
 
 
 
@@ -74,7 +74,12 @@ namespace Wyphon {
 
 	extern "C" _declspec(dllexport)
 	unsigned __int32 GetPartnerId(HANDLE wyphonPartnerHandle);
-	
+
+	extern "C" _declspec(dllexport)
+	unsigned __int32 GetPartnerIdByName(HANDLE wyphonPartnerHandle, LPCTSTR partnerName);
+
+	extern "C" _declspec(dllexport)
+	HANDLE GetShareHandleByDescription(HANDLE wyphonPartnerHandle, unsigned __int32 wyphonPartnerId, LPCTSTR textureName );
 	
 //	extern "C" _declspec(dllexport)
 //	std::array<WyphonInfo *> GetAllD3DTextureInfo(HANDLE wyphonPartnerHandle);
